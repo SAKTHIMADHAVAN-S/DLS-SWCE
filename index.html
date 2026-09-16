@@ -1,0 +1,2685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWCE ERP - Study World College of Engineering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .sidebar-slide { animation: slideInLeft 0.3s ease-out; }
+        @keyframes slideInLeft { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .card-enter { animation: cardEnter 0.3s ease-out; }
+        @keyframes cardEnter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .hover-lift { transition: all 0.2s ease; }
+        .hover-lift:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .bounce-scale { animation: bounceScale 0.3s ease; }
+        @keyframes bounceScale { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        .pop-in { animation: popIn 0.3s ease; }
+        @keyframes popIn { 0% { transform: scale(0); } 80% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        .shimmer { background: linear-gradient(90deg, #0A2D6A 0%, #1e4b8c 50%, #0A2D6A 100%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        .pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .modal-backdrop { animation: backdropFade 0.3s ease; }
+        @keyframes backdropFade { from { opacity: 0; } to { opacity: 0.5; } }
+        .modal-scale { animation: modalScale 0.3s ease; }
+        @keyframes modalScale { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .stepper-line { transition: width 0.5s ease; }
+        .progress-width { transition: width 1s ease; }
+        .count-up { transition: all 1.5s ease; }
+    </style>
+</head>
+<body class="bg-[#F6F8FB]">
+    <!-- Login Page -->
+    <div id="loginPage" class="min-h-screen flex items-center justify-center bg-[#F6F8FB]">
+        <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow-lg p-8 w-full max-w-md card-enter">
+            <div class="flex flex-col items-center mb-6">
+                <img src="/mnt/data/logo" alt="College Logo" class="h-8 w-auto bg-white rounded-lg object-contain mb-3">
+                <h1 class="text-xl font-bold text-[#0A2D6A]">STUDY WORLD College</h1>
+                <p class="text-xs text-gray-400">Coimbatore</p>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">UserMail ID</label>
+                    <input type="email" id="userMailId" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0A2D6A]" placeholder="Enter your email">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">First Last</label>
+                    <input type="text" id="fullName" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0A2D6A]" placeholder="Enter your full name">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="loginPassword" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0A2D6A]" placeholder="Enter your password">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Dept</label>
+                    <select id="loginDept" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0A2D6A]">
+                        <option value="CSE">CSE</option>
+                        <option value="AI&DS">AI&DS</option>
+                        <option value="AI&ML">AI&ML</option>
+                        <option value="CYBER SECURITY">CYBER SECURITY</option>
+                        <option value="EEE">EEE</option>
+                        <option value="MECH">MECH</option>
+                        <option value="CIVIL">CIVIL</option>
+                        <option value="ECE">ECE</option>
+                    </select>
+                </div>
+                <button onclick="handleLogin()" class="w-full bg-[#0A2D6A] text-white py-2 rounded-lg text-xs font-medium hover-lift">Login</button>
+            </div>
+            <p id="loginError" class="text-red-500 text-xs mt-3 text-center hidden"></p>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed left-0 top-0 h-full w-60 bg-[#0A2D6A] sidebar-slide z-50">
+            <div class="p-4">
+                <div class="flex items-center gap-3 mb-4">
+                    <img src="/mnt/data/logo" alt="College Logo" class="h-8 w-auto bg-white rounded-lg object-contain">
+                    <div>
+                        <h2 class="text-white text-sm font-bold">STUDY WORLD College</h2>
+                        <p class="text-gray-300 text-xs">Coimbatore</p>
+                    </div>
+                </div>
+                <nav class="space-y-1" id="sidebarMenu">
+                    <button onclick="showPage('dashboard')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="dashboard">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        Dashboard
+                    </button>
+                    <button onclick="showPage('faculty-dashboard')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="faculty-dashboard">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        Faculty Dashboard
+                    </button>
+                    <button onclick="showPage('student-profile')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="student-profile">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        Profile
+                    </button>
+                    <button onclick="showPage('student-leave')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="student-leave">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Student Leave
+                    </button>
+                    <button onclick="showPage('my-leave')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="my-leave">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        My Status
+                    </button>
+                    <button onclick="showPage('faculty-attendance')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="faculty-attendance">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        Faculty Attendance
+                    </button>
+                    <button onclick="showPage('faculty-leave')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="faculty-leave">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Faculty Leave
+                    </button>
+                    <button onclick="showPage('faculty-approval')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="faculty-approval">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Student Approval
+                    </button>
+                    <button onclick="showPage('hod-approval')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="hod-approval">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        Faculty Approval
+                    </button>
+                    <button onclick="showPage('principal-approval')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="principal-approval">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        Principal Approval
+                    </button>
+                    <button onclick="showPage('admin-panel')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="admin-panel">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        Admin Panel
+                    </button>
+                    <button onclick="showPage('reports')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="reports">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        Reports
+                    </button>
+                    <button onclick="showPage('settings')" class="menu-item w-full text-left px-3 py-2 rounded-lg text-xs text-white/80 hover:bg-white/10 flex items-center gap-2" data-page="settings">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        Settings
+                    </button>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Header -->
+        <header class="fixed top-0 left-60 right-0 h-14 bg-white border-b border-[#E5E7EB] flex items-center justify-between px-6 z-40">
+            <div class="flex items-center gap-4">
+                <nav class="text-sm text-gray-500">
+                    <span id="breadcrumbPage">Dashboard</span>
+                </nav>
+                <span id="roleBadge" class="px-2 py-1 rounded-full bg-[#DBEAFE] text-[#0A2D6A] text-xs font-medium"></span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                    <span id="bellCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center hidden">0</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <img id="headerProfilePic" src="" alt="Profile" class="w-8 h-8 rounded-full object-cover border-2 border-white shadow">
+                    <div>
+                        <p id="headerUserName" class="text-sm font-medium text-gray-900"></p>
+                        <p id="headerUserEmail" class="text-xs text-gray-500"></p>
+                    </div>
+                </div>
+                <button onclick="handleLogout()" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Logout</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="ml-60 bg-[#F6F8FB] min-h-screen p-6">
+            <!-- Dashboard Page -->
+            <div id="page-dashboard" class="page hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 flex gap-4 card-enter">
+                        <img id="dashboardProfilePic" src="" alt="Profile" class="w-12 h-12 rounded-full border-2 border-white shadow object-cover">
+                        <div>
+                            <p id="dashboardName" class="font-semibold text-base text-gray-900"></p>
+                            <p id="dashboardReg" class="text-xs text-gray-500"></p>
+                            <p id="dashboardDept" class="text-xs text-gray-500"></p>
+                            <p id="dashboardEmail" class="text-xs text-gray-500"></p>
+                            <p id="dashboardPhone" class="text-xs text-gray-500"></p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-4 card-enter">
+                            <p class="text-2xl font-bold text-[#0A2D6A] count-up" id="totalLeaves">0</p>
+                            <p class="text-xs text-gray-500">Total Leaves</p>
+                        </div>
+                        <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-4 card-enter">
+                            <p class="text-2xl font-bold text-yellow-600 count-up" id="pendingLeaves">0</p>
+                            <p class="text-xs text-gray-500">Pending</p>
+                        </div>
+                        <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-4 card-enter">
+                            <p class="text-2xl font-bold text-green-600 count-up" id="approvedLeaves">0</p>
+                            <p class="text-xs text-gray-500">Approved</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                        <p class="text-2xl font-bold text-[#0A2D6A] count-up" id="attendancePercent">0%</p>
+                        <p class="text-xs text-gray-500 mb-2">Attendance</p>
+                        <div class="h-2 bg-[#E5E7EB] rounded-full overflow-hidden">
+                            <div id="attendanceBar" class="h-full bg-[#0A2D6A] progress-width shimmer" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                        <p class="text-2xl font-bold text-green-600 count-up" id="leavePercent">0%</p>
+                        <p class="text-xs text-gray-500 mb-2">Leave</p>
+                        <div class="h-2 bg-[#E5E7EB] rounded-full overflow-hidden">
+                            <div id="leaveBar" class="h-full bg-green-500 progress-width" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <button id="btnApplyLeaveStudent" onclick="showPage('student-leave')" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Apply Leave</button>
+                    <button id="btnMyStatusStudent" onclick="showPage('my-leave')" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">View My Status</button>
+                    <button id="btnProfileStudent" onclick="showPage('student-profile')" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">View Profile</button>
+                    <button id="editProfileBtnStudent" onclick="showPage('student-profile')" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Edit Profile</button>
+                </div>
+            </div>
+
+            <!-- Student Profile Page -->
+            <div id="page-student-profile" class="page hidden">
+                <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                    <div class="flex gap-6">
+                        <div class="flex flex-col items-center">
+                            <img id="profilePagePic" src="" alt="Profile" class="w-20 h-20 rounded-full border-2 border-white shadow object-cover mb-2">
+                            <input type="file" id="profilePicInput" accept="image/*" class="hidden" onchange="handleProfilePicUpload(event)">
+                            <button onclick="document.getElementById('profilePicInput').click()" class="text-xs text-[#0A2D6A] hover:underline">Change Photo</button>
+                        </div>
+                        <div class="flex-1 grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Student Name</label>
+                                <input type="text" id="profileName" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Reg No</label>
+                                <input type="text" id="regNo" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" placeholder="7324CS001">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">DOB</label>
+                                <input type="date" id="dob" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Attendance %</label>
+                                <input type="number" id="attendancePercent" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Leave %</label>
+                                <input type="number" id="leavePercent" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Parent Number</label>
+                                <input type="tel" id="parentNumber" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" placeholder="10 digits">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Student Number</label>
+                                <input type="tel" id="studentNumber" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" placeholder="10 digits">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">UserMail ID</label>
+                                <input type="email" id="userMailId" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">College Mail</label>
+                                <input type="email" id="collegeMail" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Dept</label>
+                                <input type="text" id="dept" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Year</label>
+                                <input type="text" id="year" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm bg-gray-50" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between">
+                        <span id="lastUpdatedInfo" class="text-xs text-gray-500"></span>
+                        <button id="saveProfileBtn" onclick="saveProfile()" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Save Profile</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Leave Page -->
+            <div id="page-student-leave" class="page hidden">
+                <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">FROM</label>
+                            <input type="text" id="fromName" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Dept</label>
+                            <select id="leaveDept" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                                <option value="AI&DS">AI&DS</option>
+                                <option value="AI&ML">AI&ML</option>
+                                <option value="CSE">CSE</option>
+                                <option value="CYBER SECURITY">CYBER SECURITY</option>
+                                <option value="EEE">EEE</option>
+                                <option value="MECH">MECH</option>
+                                <option value="CIVIL">CIVIL</option>
+                                <option value="ECE">ECE</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Year</label>
+                            <select id="leaveYear" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                                <option value="I">I</option>
+                                <option value="II">II</option>
+                                <option value="III">III</option>
+                                <option value="IV">IV</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Roll No</label>
+                            <input type="text" id="rollNo" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Letter Date</label>
+                            <input type="date" id="letterDate" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">TO</label>
+                            <input type="text" id="toDesignation" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" value="The Class Advisor">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">SUBJECT</label>
+                            <select id="leaveSubject" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" onchange="toggleCustomSubject()">
+                                <option value="Fever">Fever</option>
+                                <option value="Sick">Sick</option>
+                                <option value="Medical">Medical</option>
+                                <option value="Family">Family</option>
+                                <option value="Wedding">Wedding</option>
+                                <option value="Family Emergency">Family Emergency</option>
+                                <option value="OD Symposium">OD Symposium</option>
+                                <option value="OD Sports">OD Sports</option>
+                                <option value="Personal">Personal</option>
+                                <option value="Festival Onam">Festival Onam</option>
+                                <option value="Function Pongal">Function Pongal</option>
+                                <option value="Function Diwali">Function Diwali</option>
+                                <option value="Custom">Custom</option>
+                            </select>
+                        </div>
+                        <div id="customSubjectDiv" class="hidden">
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Custom Subject</label>
+                            <input type="text" id="customSubject" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">From Date</label>
+                            <input type="date" id="fromDate" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" onchange="calculateDays()">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">To Date</label>
+                            <input type="date" id="toDate" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" onchange="calculateDays()">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">No Days</label>
+                            <input type="number" id="noDays" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm bg-gray-50" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-xs font-medium text-gray-700 mb-1">BODY</label>
+                        <textarea id="leaveBody" rows="6" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm"></textarea>
+                    </div>
+                    <div class="flex gap-3">
+                        <button id="autoWriteBtn" onclick="generateBody()" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Auto-Write</button>
+                        <button id="submitLeaveBtn" onclick="submitLeave()" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Leave Status Page -->
+            <div id="page-my-leave" class="page hidden">
+                <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 mb-4 card-enter">
+                    <div class="flex gap-3 items-center">
+                        <input type="text" id="trackingInput" placeholder="SWCE2026XXXX" class="flex-1 px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                        <button id="trackBtn" onclick="trackLeave()" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Track</button>
+                    </div>
+                </div>
+                <div id="myLeaveList" class="space-y-3"></div>
+            </div>
+
+            <!-- Faculty Dashboard -->
+            <div id="page-faculty-dashboard" class="page hidden">
+                <div class="grid grid-cols-3 gap-4 mb-4">
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-4 card-enter">
+                        <p class="text-2xl font-bold text-[#0A2D6A] count-up" id="totalStudents">0</p>
+                        <p class="text-xs text-gray-500">Total Students</p>
+                    </div>
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-4 card-enter">
+                        <p class="text-2xl font-bold text-green-600 count-up" id="presentToday">0</p>
+                        <p class="text-xs text-gray-500">Present Today</p>
+                    </div>
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-4 card-enter">
+                        <p class="text-2xl font-bold text-yellow-600 count-up" id="pendingLeavesFaculty">0</p>
+                        <p class="text-xs text-gray-500">Pending Leaves</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 mb-4 card-enter">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-semibold">Students</h3>
+                        <input type="text" id="studentSearchInput" placeholder="Search..." class="px-3 py-1.5 border border-[#E5E7EB] rounded-lg text-sm" oninput="filterStudents()">
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-xs text-gray-500 border-b">
+                                    <th class="pb-2">Photo</th>
+                                    <th class="pb-2">Name</th>
+                                    <th class="pb-2">Attendance</th>
+                                    <th class="pb-2">Leave</th>
+                                    <th class="pb-2">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentListTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                        <h3 class="text-sm font-semibold mb-4">Faculty Attendance</h3>
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Date</label>
+                                <input type="date" id="facultyAttendanceDate" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Status</label>
+                                <select id="facultyAttendanceStatus" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                                    <option value="Present">Present</option>
+                                    <option value="Absent">Absent</option>
+                                    <option value="OD">OD</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-700 mb-1">Location</label>
+                                <select id="facultyAttendanceLocation" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                                    <option value="Inside Campus">Inside Campus</option>
+                                    <option value="Outside Campus">Outside Campus</option>
+                                </select>
+                            </div>
+                            <div class="flex items-end">
+                                <button id="markFacultyAttendanceBtn" onclick="markFacultyAttendance()" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift w-full">Mark</button>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="text-left text-xs text-gray-500 border-b">
+                                        <th class="pb-2">Date</th>
+                                        <th class="pb-2">Status</th>
+                                        <th class="pb-2">Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="facultyAttendanceTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                        <h3 class="text-sm font-semibold mb-4">Faculty Leave</h3>
+                        <button id="btnFacultyLeaveApply" onclick="showPage('faculty-leave')" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Apply Faculty Leave</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Faculty Leave Page -->
+            <div id="page-faculty-leave" class="page hidden">
+                <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">FROM Faculty Name</label>
+                            <input type="text" id="facultyFromName" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Dept</label>
+                            <input type="text" id="facultyDept" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm bg-gray-50" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Designation</label>
+                            <input type="text" id="facultyDesignation" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">TO</label>
+                            <input type="text" id="facultyToDesignation" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" value="HOD/Principal">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">SUBJECT</label>
+                            <select id="facultyLeaveSubject" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" onchange="toggleFacultyCustomSubject()">
+                                <option value="Medical">Medical</option>
+                                <option value="Family">Family</option>
+                                <option value="Wedding">Wedding</option>
+                                <option value="OD">OD</option>
+                                <option value="Symposium">Symposium</option>
+                                <option value="Personal">Personal</option>
+                                <option value="Festival">Festival</option>
+                                <option value="Custom">Custom</option>
+                            </select>
+                        </div>
+                        <div id="facultyCustomSubjectDiv" class="hidden">
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Custom Subject</label>
+                            <input type="text" id="facultyCustomSubject" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">From Date</label>
+                            <input type="date" id="facultyFromDate" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" onchange="calculateFacultyDays()">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">To Date</label>
+                            <input type="date" id="facultyToDate" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" onchange="calculateFacultyDays()">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">No Days</label>
+                            <input type="number" id="facultyNoDays" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm bg-gray-50" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-xs font-medium text-gray-700 mb-1">BODY</label>
+                        <textarea id="facultyLeaveBody" rows="6" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm"></textarea>
+                    </div>
+                    <div class="flex gap-3">
+                        <button id="facultyAutoWriteBtn" onclick="generateFacultyBody()" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Auto-Write</button>
+                        <button id="submitFacultyLeaveBtn" onclick="submitFacultyLeave()" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Faculty Approval Page -->
+            <div id="page-faculty-approval" class="page hidden">
+                <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                    <h3 class="text-sm font-semibold mb-4">Student Approval</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-xs text-gray-500 border-b">
+                                    <th class="pb-2">Photo</th>
+                                    <th class="pb-2">Tracking</th>
+                                    <th class="pb-2">Name</th>
+                                    <th class="pb-2">Dept</th>
+                                    <th class="pb-2">Subject</th>
+                                    <th class="pb-2">Date</th>
+                                    <th class="pb-2">Status</th>
+                                    <th class="pb-2">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="facultyApprovalTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HOD Approval Page -->
+            <div id="page-hod-approval" class="page hidden">
+                <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                    <div class="flex gap-4 mb-4">
+                        <button id="hodStudentTab" onclick="switchHodTab('student')" class="px-4 py-2 rounded-lg text-sm bg-[#0A2D6A] text-white">Student Leaves</button>
+                        <button id="hodFacultyTab" onclick="switchHodTab('faculty')" class="px-4 py-2 rounded-lg text-sm bg-gray-100 text-gray-700">Faculty Leaves</button>
+                    </div>
+                    <div id="hodStudentLeavesSection">
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="text-left text-xs text-gray-500 border-b">
+                                        <th class="pb-2">Tracking</th>
+                                        <th class="pb-2">Name</th>
+                                        <th class="pb-2">Dept</th>
+                                        <th class="pb-2">Subject</th>
+                                        <th class="pb-2">Date</th>
+                                        <th class="pb-2">Status</th>
+                                        <th class="pb-2">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="hodStudentLeavesTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="hodFacultyLeavesSection" class="hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="text-left text-xs text-gray-500 border-b">
+                                        <th class="pb-2">Tracking</th>
+                                        <th class="pb-2">Name</th>
+                                        <th class="pb-2">Dept</th>
+                                        <th class="pb-2">Subject</th>
+                                        <th class="pb-2">Date</th>
+                                        <th class="pb-2">Status</th>
+                                        <th class="pb-2">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="hodFacultyLeavesTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Principal Approval Page -->
+            <div id="page-principal-approval" class="page hidden">
+                <div class="bg-[#D1FAE5] text-[#065F46] rounded-lg px-3 py-2 text-xs mb-4 font-medium">All Departments Auto-selected</div>
+                <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-xs text-gray-500 border-b">
+                                    <th class="pb-2">Tracking</th>
+                                    <th class="pb-2">Name</th>
+                                    <th class="pb-2">Dept</th>
+                                    <th class="pb-2">Date</th>
+                                    <th class="pb-2">Type</th>
+                                    <th class="pb-2">Status</th>
+                                    <th class="pb-2">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="principalApprovalTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Panel -->
+            <div id="page-admin-panel" class="page hidden">
+                <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 mb-4 card-enter">
+                    <h3 class="text-sm font-semibold mb-4">Whitelist Management</h3>
+                    <div class="grid grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Faculty Email</label>
+                            <div class="flex gap-2">
+                                <input type="email" id="addFacultyEmailInput" class="flex-1 px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                                <button id="addFacultyBtn" onclick="addWhitelist('faculty')" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Add</button>
+                            </div>
+                            <div id="facultyWhitelistList" class="mt-2 space-y-1"></div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">HOD Email</label>
+                            <div class="flex gap-2">
+                                <input type="email" id="addHodEmailInput" class="flex-1 px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                                <button id="addHodBtn" onclick="addWhitelist('hod')" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Add</button>
+                            </div>
+                            <div id="hodWhitelistList" class="mt-2 space-y-1"></div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Principal Email</label>
+                            <div class="flex gap-2">
+                                <input type="email" id="addPrincipalEmailInput" class="flex-1 px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                                <button id="addPrincipalBtn" onclick="addWhitelist('principal')" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Add</button>
+                            </div>
+                            <div id="principalWhitelistList" class="mt-2 space-y-1"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                    <h3 class="text-sm font-semibold mb-4">Security Logs</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-xs text-gray-500 border-b">
+                                    <th class="pb-2">Email</th>
+                                    <th class="pb-2">Attempted</th>
+                                    <th class="pb-2">Actual</th>
+                                    <th class="pb-2">Time</th>
+                                    <th class="pb-2">Result</th>
+                                </tr>
+                            </thead>
+                            <tbody id="securityLogsList"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Page -->
+            <div id="page-reports" class="page hidden">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                        <h3 class="text-sm font-semibold mb-4">Dept Wise Leaves</h3>
+                        <div id="deptLeavesChart" class="space-y-2"></div>
+                    </div>
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                        <h3 class="text-sm font-semibold mb-4">Faculty Attendance Weekly</h3>
+                        <div id="facultyAttendanceChart" class="space-y-2"></div>
+                    </div>
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                        <h3 class="text-sm font-semibold mb-4">Faculty Leave Types</h3>
+                        <div id="facultyLeaveTypesChart" class="flex gap-4"></div>
+                    </div>
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                        <h3 class="text-sm font-semibold mb-4">Status Distribution</h3>
+                        <div id="statusPieChart" class="flex gap-4"></div>
+                    </div>
+                    <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter col-span-2">
+                        <h3 class="text-sm font-semibold mb-4">Latency Comparison</h3>
+                        <div id="latencyChart" class="space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="page-settings" class="page hidden">
+                <div class="bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Profile Picture</label>
+                            <input type="file" id="settingsProfilePicInput" accept="image/*" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-700 mb-1">Change Password</label>
+                            <input type="password" id="changePassword" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" placeholder="New Password">
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button id="exportDataBtn" onclick="exportData()" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Export Data</button>
+                        <button id="importDataBtn" onclick="importData()" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Import Data</button>
+                        <button id="clearDataBtn" onclick="clearData()" class="bg-red-600 text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Clear Data</button>
+                        <button id="logoutBtn" onclick="handleLogout()" class="bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="facultyUpdateAttendanceModal" class="fixed inset-0 bg-black/50 backdrop modal-backdrop hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-md modal-scale">
+            <h3 class="text-sm font-semibold mb-4">Update Attendance</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Student Name</label>
+                    <input type="text" id="modalStudentName" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm bg-gray-50" readonly>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Attendance %</label>
+                    <input type="number" id="editAttendancePercent" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" min="0" max="100">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Leave %</label>
+                    <input type="number" id="editLeavePercent" class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm" min="0" max="100">
+                </div>
+                <input type="hidden" id="modalStudentEmail">
+                <div class="flex gap-3">
+                    <button onclick="closeAttendanceModal()" class="flex-1 bg-gray-100 text-gray-700 text-xs px-3 py-1.5 rounded-lg">Cancel</button>
+                    <button id="saveAttendanceBtn" onclick="saveAttendance()" class="flex-1 bg-[#0A2D6A] text-white text-xs px-3 py-1.5 rounded-lg hover-lift">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="trackingModal" class="fixed inset-0 bg-black/50 backdrop modal-backdrop hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-lg modal-scale max-h-[80vh] overflow-y-auto">
+            <h3 class="text-sm font-semibold mb-4">Leave Status</h3>
+            <div id="trackingModalContent"></div>
+            <button onclick="closeTrackingModal()" class="mt-4 bg-gray-100 text-gray-700 text-xs px-3 py-1.5 rounded-lg w-full">Close</button>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-[#0A2D6A] text-white px-4 py-2 rounded-lg shadow-lg hidden pop-in z-50"></div>
+
+    <script>
+        // Initialize data structures
+        let currentUser = null;
+        let currentUserRole = null;
+
+        // Initialize localStorage
+        function initializeData() {
+            if (!localStorage.getItem('swce_leaves')) localStorage.setItem('swce_leaves', JSON.stringify([]));
+            if (!localStorage.getItem('swce_faculty_leaves')) localStorage.setItem('swce_faculty_leaves', JSON.stringify([]));
+            if (!localStorage.getItem('swce_student_profiles')) localStorage.setItem('swce_student_profiles', JSON.stringify({}));
+            if (!localStorage.getItem('swce_attendance')) localStorage.setItem('swce_attendance', JSON.stringify([]));
+            if (!localStorage.getItem('swce_notifications')) localStorage.setItem('swce_notifications', JSON.stringify([]));
+            if (!localStorage.getItem('swce_security_logs')) localStorage.setItem('swce_security_logs', JSON.stringify([]));
+            if (!localStorage.getItem('swce_attendance_audit')) localStorage.setItem('swce_attendance_audit', JSON.stringify([]));
+            if (!localStorage.getItem('swce_faculty_whitelist')) localStorage.setItem('swce_faculty_whitelist', JSON.stringify([]));
+            if (!localStorage.getItem('swce_hod_whitelist')) localStorage.setItem('swce_hod_whitelist', JSON.stringify([]));
+            if (!localStorage.getItem('swce_principal_whitelist')) localStorage.setItem('swce_principal_whitelist', JSON.stringify([]));
+            
+            // Add default whitelists for testing
+            const facultyWhitelist = JSON.parse(localStorage.getItem('swce_faculty_whitelist'));
+            if (facultyWhitelist.length === 0) {
+                localStorage.setItem('swce_faculty_whitelist', JSON.stringify(['faculty@study-world.edu.in', 'faculty.cse@gmail.com']));
+            }
+            const hodWhitelist = JSON.parse(localStorage.getItem('swce_hod_whitelist'));
+            if (hodWhitelist.length === 0) {
+                localStorage.setItem('swce_hod_whitelist', JSON.stringify(['hod@study-world.edu.in']));
+            }
+            const principalWhitelist = JSON.parse(localStorage.getItem('swce_principal_whitelist'));
+            if (principalWhitelist.length === 0) {
+                localStorage.setItem('swce_principal_whitelist', JSON.stringify(['principal@study-world.edu.in']));
+            }
+        }
+
+        // Get actual role from whitelist
+        function getActualRole(email) {
+            const facultyWhitelist = JSON.parse(localStorage.getItem('swce_faculty_whitelist'));
+            const hodWhitelist = JSON.parse(localStorage.getItem('swce_hod_whitelist'));
+            const principalWhitelist = JSON.parse(localStorage.getItem('swce_principal_whitelist'));
+            
+            const emailLower = email.toLowerCase().trim();
+            
+            if (principalWhitelist.some(e => e.toLowerCase().trim() === emailLower)) return 'principal';
+            if (hodWhitelist.some(e => e.toLowerCase().trim() === emailLower)) return 'hod';
+            if (facultyWhitelist.some(e => e.toLowerCase().trim() === emailLower)) return 'faculty';
+            return 'student';
+        }
+
+        // Handle login
+        function handleLogin() {
+            const usermail = document.getElementById('userMailId').value;
+            const fullName = document.getElementById('fullName').value;
+            const password = document.getElementById('loginPassword').value;
+            const dept = document.getElementById('loginDept').value;
+            
+            if (!usermail || !fullName || !password) {
+                document.getElementById('loginError').textContent = 'Please fill all fields';
+                document.getElementById('loginError').classList.remove('hidden');
+                return;
+            }
+
+            const actualRole = getActualRole(usermail);
+            
+            // Log security
+            const securityLogs = JSON.parse(localStorage.getItem('swce_security_logs'));
+            securityLogs.push({
+                id: Date.now(),
+                email: usermail,
+                attemptedRole: 'unknown',
+                actualRole: actualRole,
+                time: new Date().toISOString(),
+                result: 'Allowed'
+            });
+            localStorage.setItem('swce_security_logs', JSON.stringify(securityLogs));
+
+            currentUser = {
+                email: usermail,
+                fullName: fullName,
+                role: actualRole,
+                dept: dept
+            };
+            currentUserRole = actualRole;
+            localStorage.setItem('swce_current_user', JSON.stringify(currentUser));
+
+            // Create or update profile
+            const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+            if (!profiles[email]) {
+                profiles[email] = {
+                    studentName: email.split('@')[0],
+                    regNo: '7324CS001',
+                    dob: '2000-01-01',
+                    profilePic: '',
+                    attendancePercent: 85,
+                    leavePercent: 15,
+                    parentNumber: '9876543210',
+                    studentNumber: '9123456789',
+                    userMailId: email,
+                    collegeMail: email.replace('@', '@swce.'),
+                    dept: 'CSE',
+                    year: 'III'
+                };
+                localStorage.setItem('swce_student_profiles', JSON.stringify(profiles));
+            }
+
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('hidden');
+            arrangeDashboardByRole();
+            updateHeader();
+        }
+
+        // Handle logout
+        function handleLogout() {
+            localStorage.removeItem('swce_current_user');
+            currentUser = null;
+            currentUserRole = null;
+            document.getElementById('mainApp').classList.add('hidden');
+            document.getElementById('loginPage').classList.remove('hidden');
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+        // Arrange dashboard by role
+        function arrangeDashboardByRole() {
+            // Hide all pages first
+            const allPages = ['dashboard', 'student-profile', 'student-leave', 'my-leave', 'faculty-dashboard', 'faculty-attendance', 'faculty-leave', 'faculty-approval', 'hod-approval', 'principal-approval', 'admin-panel', 'reports', 'settings'];
+            allPages.forEach(page => {
+                const pageElement = document.getElementById(`page-${page}`);
+                if (pageElement) pageElement.classList.add('hidden');
+            });
+
+            // Set role attributes on sidebar menu items
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                const page = item.dataset.page;
+                item.classList.remove('bg-white', 'text-[#0A2D6A]');
+                item.classList.add('text-white/80');
+                
+                // Set role attributes
+                if (['dashboard', 'student-profile', 'student-leave', 'my-leave', 'settings'].includes(page)) {
+                    item.setAttribute('data-role', 'Student');
+                } else if (['faculty-dashboard', 'faculty-attendance', 'faculty-leave', 'faculty-approval'].includes(page)) {
+                    item.setAttribute('data-role', 'Faculty');
+                } else if (['hod-approval'].includes(page)) {
+                    item.setAttribute('data-role', 'HOD');
+                } else if (['principal-approval', 'admin-panel'].includes(page)) {
+                    item.setAttribute('data-role', 'Principal');
+                } else {
+                    item.setAttribute('data-role', 'All');
+                }
+            });
+
+            // Show pages and menu items based on role
+            let defaultPage = '';
+            
+            switch (currentUserRole) {
+                case 'student':
+                    // Show student pages only
+                    ['dashboard', 'student-profile', 'student-leave', 'my-leave', 'settings'].forEach(page => {
+                        const pageElement = document.getElementById(`page-${page}`);
+                        if (pageElement) pageElement.classList.remove('hidden');
+                    });
+                    defaultPage = 'dashboard';
+                    
+                    // Show only student menu items
+                    menuItems.forEach(item => {
+                        const page = item.dataset.page;
+                        const visible = ['dashboard', 'student-profile', 'student-leave', 'my-leave', 'settings'].includes(page);
+                        item.style.display = visible ? 'flex' : 'none';
+                    });
+                    break;
+                    
+                case 'faculty':
+                    // Show faculty pages (not student dashboard)
+                    ['faculty-dashboard', 'student-profile', 'faculty-approval', 'faculty-attendance', 'faculty-leave', 'my-leave', 'reports', 'settings'].forEach(page => {
+                        const pageElement = document.getElementById(`page-${page}`);
+                        if (pageElement) pageElement.classList.remove('hidden');
+                    });
+                    defaultPage = 'faculty-dashboard';
+                    
+                    // Show faculty menu items, hide student dashboard
+                    menuItems.forEach(item => {
+                        const page = item.dataset.page;
+                        const visible = ['faculty-dashboard', 'student-profile', 'faculty-approval', 'faculty-attendance', 'faculty-leave', 'my-leave', 'reports', 'settings'].includes(page);
+                        item.style.display = visible ? 'flex' : 'none';
+                    });
+                    break;
+                    
+                case 'hod':
+                    // Show HOD pages
+                    ['faculty-dashboard', 'hod-approval', 'faculty-approval', 'reports', 'settings'].forEach(page => {
+                        const pageElement = document.getElementById(`page-${page}`);
+                        if (pageElement) pageElement.classList.remove('hidden');
+                    });
+                    defaultPage = 'hod-approval';
+                    
+                    // Show HOD menu items
+                    menuItems.forEach(item => {
+                        const page = item.dataset.page;
+                        const visible = ['faculty-dashboard', 'hod-approval', 'faculty-approval', 'reports', 'settings'].includes(page);
+                        item.style.display = visible ? 'flex' : 'none';
+                    });
+                    break;
+                    
+                case 'principal':
+                    // Show all pages including admin panel
+                    allPages.forEach(page => {
+                        const pageElement = document.getElementById(`page-${page}`);
+                        if (pageElement) pageElement.classList.remove('hidden');
+                    });
+                    defaultPage = 'principal-approval';
+                    
+                    // Show all menu items
+                    menuItems.forEach(item => {
+                        item.style.display = 'flex';
+                    });
+                    break;
+            }
+
+            // Set active class on default page menu item
+            const activeMenuItem = document.querySelector(`.menu-item[data-page="${defaultPage}"]`);
+            if (activeMenuItem) {
+                activeMenuItem.classList.add('bg-white', 'text-[#0A2D6A]');
+                activeMenuItem.classList.remove('text-white/80');
+            }
+
+            // Show default page
+            showPage(defaultPage);
+            
+            // Update role badge
+            document.getElementById('roleBadge').textContent = currentUserRole.charAt(0).toUpperCase() + currentUserRole.slice(1);
+        }
+
+        // Show page
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
+            document.getElementById(`page-${pageName}`).classList.remove('hidden');
+            
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('bg-white', 'text-[#0A2D6A]');
+                item.classList.add('text-white/80');
+            });
+            
+            const activeMenuItem = document.querySelector(`.menu-item[data-page="${pageName}"]`);
+            if (activeMenuItem) {
+                activeMenuItem.classList.add('bg-white', 'text-[#0A2D6A]');
+                activeMenuItem.classList.remove('text-white/80');
+            }
+            
+            document.getElementById('breadcrumbPage').textContent = pageName.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+            
+            // Load page-specific data
+            loadPageData(pageName);
+        }
+
+        // Load page data
+        function loadPageData(pageName) {
+            switch (pageName) {
+                case 'dashboard':
+                    loadDashboard();
+                    break;
+                case 'faculty-dashboard':
+                    loadFacultyDashboard();
+                    break;
+                case 'student-profile':
+                    loadStudentProfile();
+                    break;
+                case 'student-leave':
+                    loadStudentLeave();
+                    break;
+                case 'my-leave':
+                    loadMyLeave();
+                    break;
+                case 'faculty-attendance':
+                    loadFacultyDashboard();
+                    break;
+                case 'faculty-leave':
+                    loadFacultyLeave();
+                    break;
+                case 'faculty-approval':
+                    loadFacultyApproval();
+                    break;
+                case 'hod-approval':
+                    loadHodApproval();
+                    break;
+                case 'principal-approval':
+                    loadPrincipalApproval();
+                    break;
+                case 'admin-panel':
+                    loadAdminPanel();
+                    break;
+                case 'reports':
+                    loadReports();
+                    break;
+                case 'settings':
+                    // Settings page loaded automatically
+                    break;
+            }
+        }
+
+        // Update header
+        function updateHeader() {
+            if (!currentUser) return;
+            
+            const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+            const profile = profiles[currentUser.email] || {};
+            
+            document.getElementById('headerUserName').textContent = currentUser.fullName;
+            document.getElementById('headerUserEmail').textContent = currentUser.email;
+            document.getElementById('roleBadge').textContent = currentUserRole.toUpperCase();
+            
+            const profilePic = profile.profilePic || localStorage.getItem(`swce_profile_${currentUser.email}`) || '';
+            document.getElementById('headerProfilePic').src = profilePic || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23E5E7EB"%3E%3Cpath d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/%3E%3C/svg%3E';
+        }
+
+        // Load dashboard
+        function loadDashboard() {
+            const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+            const profile = profiles[currentUser.email] || {};
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            const userLeaves = leaves.filter(l => l.fromEmail === currentUser.email);
+            
+            document.getElementById('dashboardName').textContent = profile.studentName || currentUser.fullName;
+            document.getElementById('dashboardReg').textContent = profile.regNo || '';
+            document.getElementById('dashboardDept').textContent = `${profile.dept || ''} | Year ${profile.year || ''}`;
+            document.getElementById('dashboardEmail').textContent = profile.userMailId || currentUser.email;
+            document.getElementById('dashboardPhone').textContent = profile.studentNumber || '';
+            
+            const profilePic = profile.profilePic || localStorage.getItem(`swce_profile_${currentUser.email}`) || '';
+            document.getElementById('dashboardProfilePic').src = profilePic || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23E5E7EB"%3E%3Cpath d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/%3E%3C/svg%3E';
+            
+            document.getElementById('totalLeaves').textContent = userLeaves.length;
+            document.getElementById('pendingLeaves').textContent = userLeaves.filter(l => l.overallStatus === 'Pending').length;
+            document.getElementById('approvedLeaves').textContent = userLeaves.filter(l => l.overallStatus === 'Approved').length;
+            
+            document.getElementById('attendancePercent').textContent = (profile.attendancePercent || 0) + '%';
+            document.getElementById('leavePercent').textContent = (profile.leavePercent || 0) + '%';
+            document.getElementById('attendanceBar').style.width = (profile.attendancePercent || 0) + '%';
+            document.getElementById('leaveBar').style.width = (profile.leavePercent || 0) + '%';
+        }
+
+        // Load student profile
+        function loadStudentProfile() {
+            const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+            const profile = profiles[currentUser.email] || {};
+            
+            document.getElementById('profileName').value = profile.studentName || '';
+            document.getElementById('regNo').value = profile.regNo || '';
+            document.getElementById('dob').value = profile.dob || '';
+            document.getElementById('attendancePercent').value = profile.attendancePercent || 0;
+            document.getElementById('leavePercent').value = profile.leavePercent || 0;
+            document.getElementById('parentNumber').value = profile.parentNumber || '';
+            document.getElementById('studentNumber').value = profile.studentNumber || '';
+            document.getElementById('userMailId').value = profile.userMailId || currentUser.email;
+            document.getElementById('collegeMail').value = profile.collegeMail || '';
+            document.getElementById('dept').value = profile.dept || '';
+            document.getElementById('year').value = profile.year || '';
+            
+            const profilePic = profile.profilePic || localStorage.getItem(`swce_profile_${currentUser.email}`) || '';
+            document.getElementById('profilePagePic').src = profilePic || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23E5E7EB"%3E%3Cpath d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/%3E%3C/svg%3E';
+            
+            if (profile.lastUpdated) {
+                document.getElementById('lastUpdatedInfo').textContent = `Last updated: ${new Date(profile.lastUpdated).toLocaleString()}`;
+            }
+        }
+
+        // Save profile
+        function saveProfile() {
+            const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+            
+            const regNo = document.getElementById('regNo').value;
+            const regNoRegex = /^[0-9]{4}[A-Z]{2,4}[0-9]{3}$/;
+            if (!regNoRegex.test(regNo)) {
+                showToast('Invalid Reg No format. Use format: 7324CS001');
+                return;
+            }
+            
+            const dob = document.getElementById('dob').value;
+            if (dob) {
+                const dobDate = new Date(dob);
+                const today = new Date();
+                const age = today.getFullYear() - dobDate.getFullYear();
+                if (age < 16) {
+                    showToast('Age must be at least 16');
+                    return;
+                }
+            }
+            
+            const parentNumber = document.getElementById('parentNumber').value;
+            const studentNumber = document.getElementById('studentNumber').value;
+            const phoneRegex = /^[0-9]{10}$/;
+            
+            if (!phoneRegex.test(parentNumber)) {
+                showToast('Parent number must be 10 digits');
+                return;
+            }
+            
+            if (!phoneRegex.test(studentNumber)) {
+                showToast('Student number must be 10 digits');
+                return;
+            }
+            
+            profiles[currentUser.email] = {
+                ...profiles[currentUser.email],
+                studentName: document.getElementById('profileName').value,
+                regNo: regNo,
+                dob: dob,
+                parentNumber: parentNumber,
+                studentNumber: studentNumber,
+                lastUpdated: Date.now()
+            };
+            
+            localStorage.setItem('swce_student_profiles', JSON.stringify(profiles));
+            showToast('Profile saved successfully');
+            loadStudentProfile();
+        }
+
+        // Handle profile pic upload
+        function handleProfilePicUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (file.size > 2 * 1024 * 1024) {
+                showToast('Max file size is 2MB');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64 = e.target.result;
+                localStorage.setItem(`swce_profile_${currentUser.email}`, base64);
+                
+                const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+                profiles[currentUser.email] = {
+                    ...profiles[currentUser.email],
+                    profilePic: base64
+                };
+                localStorage.setItem('swce_student_profiles', JSON.stringify(profiles));
+                
+                loadStudentProfile();
+                updateHeader();
+                showToast('Profile picture updated');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Load student leave
+        function loadStudentLeave() {
+            const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+            const profile = profiles[currentUser.email] || {};
+            
+            document.getElementById('fromName').value = profile.studentName || currentUser.fullName;
+            document.getElementById('leaveDept').value = profile.dept || 'CSE';
+            document.getElementById('leaveYear').value = profile.year || 'III';
+            document.getElementById('rollNo').value = profile.regNo || '';
+            document.getElementById('letterDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('fromDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('toDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('noDays').value = 1;
+        }
+
+        // Toggle custom subject
+        function toggleCustomSubject() {
+            const subject = document.getElementById('leaveSubject').value;
+            document.getElementById('customSubjectDiv').classList.toggle('hidden', subject !== 'Custom');
+        }
+
+        // Calculate days
+        function calculateDays() {
+            const fromDate = new Date(document.getElementById('fromDate').value);
+            const toDate = new Date(document.getElementById('toDate').value);
+            const days = Math.ceil((toDate - fromDate) / (1000 * 60 * 60 * 24)) + 1;
+            document.getElementById('noDays').value = days > 0 ? days : 1;
+        }
+
+        // Generate body
+        function generateBody() {
+            const subject = document.getElementById('leaveSubject').value;
+            const customSubject = document.getElementById('customSubject').value;
+            const fromDate = document.getElementById('fromDate').value;
+            const toDate = document.getElementById('toDate').value;
+            const days = document.getElementById('noDays').value;
+            const fromName = document.getElementById('fromName').value;
+            
+            let body = '';
+            
+            switch (subject) {
+                case 'Fever':
+                case 'Sick':
+                case 'Medical':
+                    body = `I have been suffering from ${subject.toLowerCase()} and am unable to attend classes from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                case 'Festival Onam':
+                    body = `On account of Onam Festival celebration at my native place, I need to celebrate Onam with my family and participate in Onam cultural programs from ${fromDate} to ${toDate}. Onam is the harvest festival of Kerala with Onasadya and cultural events. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                case 'Function Pongal':
+                    body = `Pongal is the harvest festival of Tamil Nadu. I need to participate in the Pongal celebration with my family from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                case 'Function Diwali':
+                    body = `I need to participate in the Diwali festival celebration with my family from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                case 'Wedding':
+                    body = `I need to attend a family wedding function from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                case 'Family Emergency':
+                    body = `Due to a family emergency, I need to attend to urgent family matters from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                case 'OD Symposium':
+                case 'OD Sports':
+                    body = `I need to attend an ${subject.replace('OD ', '')} event officially from ${fromDate} to ${toDate}. I request you to grant me OD for ${days} day(s).`;
+                    break;
+                case 'Personal':
+                    body = `I need to attend to personal matters from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                case 'Custom':
+                    body = `I need to attend to ${customSubject} from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                default:
+                    body = `I request you to grant me leave from ${fromDate} to ${toDate} for ${days} day(s) due to ${subject}.`;
+            }
+            
+            document.getElementById('leaveBody').value = body;
+        }
+
+        // Submit leave
+        function submitLeave() {
+            const fromName = document.getElementById('fromName').value;
+            const dept = document.getElementById('leaveDept').value;
+            const year = document.getElementById('leaveYear').value;
+            const rollNo = document.getElementById('rollNo').value;
+            const letterDate = document.getElementById('letterDate').value;
+            const toDesignation = document.getElementById('toDesignation').value;
+            const subject = document.getElementById('leaveSubject').value;
+            const customSubject = document.getElementById('customSubject').value;
+            const fromDate = document.getElementById('fromDate').value;
+            const toDate = document.getElementById('toDate').value;
+            const days = document.getElementById('noDays').value;
+            const body = document.getElementById('leaveBody').value;
+            
+            if (!fromName || !dept || !year || !rollNo || !letterDate || !fromDate || !toDate || !body) {
+                showToast('Please fill all required fields');
+                return;
+            }
+            
+            const trackingId = `SWCE${new Date().getFullYear()}${Math.floor(1000 + Math.random() * 9000)}`;
+            
+            const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+            const profile = profiles[currentUser.email] || {};
+            
+            const leave = {
+                id: Date.now(),
+                trackingId: trackingId,
+                studentName: fromName,
+                fromEmail: currentUser.email,
+                rollNo: rollNo,
+                dept: dept,
+                year: year,
+                fromDate: fromDate,
+                toDate: toDate,
+                days: parseInt(days),
+                subject: subject === 'Custom' ? customSubject : subject,
+                customSubject: customSubject,
+                body: body,
+                from: fromName,
+                to: toDesignation,
+                isAllDepts: false,
+                profilePhoto: profile.profilePic || localStorage.getItem(`swce_profile_${currentUser.email}`) || '',
+                signature: currentUser.email,
+                currentLevel: 'Faculty',
+                overallStatus: 'Pending',
+                statusChain: {
+                    Faculty: 'Pending',
+                    HOD: 'Waiting',
+                    Principal: 'Waiting'
+                },
+                history: [{
+                    level: 'Faculty',
+                    action: 'Submitted to Faculty',
+                    timestamp: Date.now()
+                }],
+                createdAt: Date.now()
+            };
+            
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            leaves.push(leave);
+            localStorage.setItem('swce_leaves', JSON.stringify(leaves));
+            
+            // Add notification
+            const notifications = JSON.parse(localStorage.getItem('swce_notifications'));
+            const facultyWhitelist = JSON.parse(localStorage.getItem('swce_faculty_whitelist'));
+            const hodWhitelist = JSON.parse(localStorage.getItem('swce_hod_whitelist'));
+            
+            facultyWhitelist.forEach(email => {
+                notifications.push({
+                    id: Date.now() + Math.random(),
+                    type: 'Leave Submitted',
+                    message: `New leave from ${fromName} - ${trackingId}`,
+                    trackingId: trackingId,
+                    time: Date.now(),
+                    read: false,
+                    target: email
+                });
+            });
+            
+            localStorage.setItem('swce_notifications', JSON.stringify(notifications));
+            
+            showToast(`Leave submitted. Tracking ID: ${trackingId}`);
+            showPage('my-leave');
+        }
+
+        // Load my leave
+        function loadMyLeave() {
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            const userLeaves = leaves.filter(l => l.fromEmail === currentUser.email);
+            
+            const container = document.getElementById('myLeaveList');
+            container.innerHTML = '';
+            
+            userLeaves.forEach((leave, index) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-2xl border border-[#E5E7EB] shadow p-5 card-enter';
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+                const profile = profiles[leave.fromEmail] || {};
+                const profilePic = profile.profilePic || localStorage.getItem(`swce_profile_${leave.fromEmail}`) || '';
+                
+                const statusColors = {
+                    'Pending': 'bg-yellow-100 text-yellow-800',
+                    'Approved': 'bg-green-100 text-green-800',
+                    'Rejected': 'bg-red-100 text-red-800',
+                    'Waiting': 'bg-gray-100 text-gray-800'
+                };
+                
+                card.innerHTML = `
+                    <div class="flex gap-4 items-start">
+                        <img src="${profilePic || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23E5E7EB"%3E%3Cpath d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/%3E%3C/svg%3E'}" alt="Profile" class="w-8 h-8 rounded-full object-cover">
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-mono text-gray-500">${leave.trackingId}</p>
+                                    <p class="text-sm font-medium">${leave.studentName}</p>
+                                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">${leave.dept}</span>
+                                </div>
+                                <span class="text-xs ${statusColors[leave.overallStatus]} px-2 py-0.5 rounded-full">${leave.overallStatus}</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">${leave.subject}</p>
+                            <p class="text-xs text-gray-500">${leave.fromDate} to ${leave.toDate}</p>
+                            <div class="mt-3 flex items-center gap-2">
+                                <div class="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full stepper-line ${leave.statusChain.Faculty === 'Approved' ? 'bg-green-500' : leave.statusChain.Faculty === 'Rejected' ? 'bg-red-500' : 'bg-gray-300'}" style="width: ${leave.statusChain.Faculty !== 'Waiting' ? '33' : '0'}%"></div>
+                                </div>
+                                <div class="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full stepper-line ${leave.statusChain.HOD === 'Approved' ? 'bg-green-500' : leave.statusChain.HOD === 'Rejected' ? 'bg-red-500' : 'bg-gray-300'}" style="width: ${leave.statusChain.HOD !== 'Waiting' ? '33' : '0'}%"></div>
+                                </div>
+                                <div class="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full stepper-line ${leave.statusChain.Principal === 'Approved' ? 'bg-green-500' : leave.statusChain.Principal === 'Rejected' ? 'bg-red-500' : 'bg-gray-300'}" style="width: ${leave.statusChain.Principal !== 'Waiting' ? '33' : '0'}%"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between text-xs text-gray-400 mt-1">
+                                <span>Faculty</span>
+                                <span>HOD</span>
+                                <span>Principal</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Track leave
+        function trackLeave() {
+            const trackingId = document.getElementById('trackingInput').value;
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            const leave = leaves.find(l => l.trackingId === trackingId);
+            
+            if (!leave) {
+                showToast('Leave not found');
+                return;
+            }
+            
+            const content = document.getElementById('trackingModalContent');
+            const statusColors = {
+                'Pending': 'bg-yellow-100 text-yellow-800',
+                'Approved': 'bg-green-100 text-green-800',
+                'Rejected': 'bg-red-100 text-red-800',
+                'Waiting': 'bg-gray-100 text-gray-800'
+            };
+            
+            content.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <p class="text-xs font-mono text-gray-500">${leave.trackingId}</p>
+                        <span class="text-xs ${statusColors[leave.overallStatus]} px-2 py-0.5 rounded-full">${leave.overallStatus}</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium">${leave.studentName}</p>
+                        <p class="text-xs text-gray-500">${leave.dept} | ${leave.subject}</p>
+                        <p class="text-xs text-gray-500">${leave.fromDate} to ${leave.toDate} (${leave.days} days)</p>
+                    </div>
+                    <div class="border-t pt-4">
+                        <p class="text-xs font-medium mb-2">Approval Status</p>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full ${leave.statusChain.Faculty === 'Approved' ? 'bg-green-500' : leave.statusChain.Faculty === 'Rejected' ? 'bg-red-500' : 'bg-gray-300'}"></div>
+                                <span class="text-xs">Faculty: ${leave.statusChain.Faculty}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full ${leave.statusChain.HOD === 'Approved' ? 'bg-green-500' : leave.statusChain.HOD === 'Rejected' ? 'bg-red-500' : 'bg-gray-300'}"></div>
+                                <span class="text-xs">HOD: ${leave.statusChain.HOD}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full ${leave.statusChain.Principal === 'Approved' ? 'bg-green-500' : leave.statusChain.Principal === 'Rejected' ? 'bg-red-500' : 'bg-gray-300'}"></div>
+                                <span class="text-xs">Principal: ${leave.statusChain.Principal}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t pt-4">
+                        <p class="text-xs font-medium mb-2">History</p>
+                        <div class="space-y-1">
+                            ${leave.history.map(h => `
+                                <div class="text-xs text-gray-500">
+                                    <span class="font-medium">${h.level}</span>: ${h.action} - ${new Date(h.timestamp).toLocaleString()}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('trackingModal').classList.remove('hidden');
+        }
+
+        // Close tracking modal
+        function closeTrackingModal() {
+            document.getElementById('trackingModal').classList.add('hidden');
+        }
+
+        // Load faculty dashboard
+        function loadFacultyDashboard() {
+            const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+            const attendance = JSON.parse(localStorage.getItem('swce_attendance'));
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            
+            document.getElementById('totalStudents').textContent = Object.keys(profiles).length;
+            
+            const today = new Date().toISOString().split('T')[0];
+            const presentToday = attendance.filter(a => a.date === today && a.status === 'Present').length;
+            document.getElementById('presentToday').textContent = presentToday;
+            
+            const pendingLeaves = leaves.filter(l => l.currentLevel === 'Faculty' && l.statusChain.Faculty === 'Pending').length;
+            document.getElementById('pendingLeavesFaculty').textContent = pendingLeaves;
+            
+            loadStudentList();
+            loadFacultyAttendanceTable();
+        }
+
+        // Load student list
+        function loadStudentList() {
+            const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+            const table = document.getElementById('studentListTable');
+            table.innerHTML = '';
+            
+            Object.values(profiles).forEach((profile, index) => {
+                const row = document.createElement('tr');
+                row.className = 'border-b text-xs';
+                
+                const profilePic = profile.profilePic || localStorage.getItem(`swce_profile_${profile.userMailId}`) || '';
+                
+                row.innerHTML = `
+                    <td class="py-2">
+                        <img src="${profilePic || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23E5E7EB"%3E%3Cpath d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/%3E%3C/svg%3E'}" alt="Profile" class="w-8 h-8 rounded-full object-cover">
+                    </td>
+                    <td class="py-2 text-sm font-medium">${profile.studentName}</td>
+                    <td class="py-2">
+                        <div class="w-24">
+                            <div class="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-[#0A2D6A]" style="width: ${profile.attendancePercent || 0}%"></div>
+                            </div>
+                            <span class="text-xs">${profile.attendancePercent || 0}%</span>
+                        </div>
+                    </td>
+                    <td class="py-2">
+                        <div class="w-24">
+                            <div class="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-green-500" style="width: ${profile.leavePercent || 0}%"></div>
+                            </div>
+                            <span class="text-xs">${profile.leavePercent || 0}%</span>
+                        </div>
+                    </td>
+                    <td class="py-2">
+                        <button id="editAttendanceBtn-${profile.userMailId}" onclick="openAttendanceModal('${profile.userMailId}')" class="text-xs text-[#0A2D6A] border border-[#0A2D6A] px-3 py-1.5 rounded-lg hover:bg-[#0A2D6A] hover:text-white">Edit</button>
+                    </td>
+                `;
+                
+                table.appendChild(row);
+            });
+        }
+
+        // Filter students
+        function filterStudents() {
+            const search = document.getElementById('studentSearchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#studentListTable tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(search) ? '' : 'none';
+            });
+        }
+
+        // Open attendance modal
+        function openAttendanceModal(email) {
+            const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+            const profile = profiles[email];
+            
+            document.getElementById('modalStudentName').value = profile.studentName;
+            document.getElementById('editAttendancePercent').value = profile.attendancePercent;
+            document.getElementById('editLeavePercent').value = profile.leavePercent;
+            document.getElementById('modalStudentEmail').value = email;
+            
+            document.getElementById('facultyUpdateAttendanceModal').classList.remove('hidden');
+        }
+
+        // Close attendance modal
+        function closeAttendanceModal() {
+            document.getElementById('facultyUpdateAttendanceModal').classList.add('hidden');
+        }
+
+        // Save attendance
+        function saveAttendance() {
+            const email = document.getElementById('modalStudentEmail').value;
+            const attendancePercent = parseInt(document.getElementById('editAttendancePercent').value);
+            const leavePercent = parseInt(document.getElementById('editLeavePercent').value);
+            
+            if (attendancePercent < 0 || attendancePercent > 100 || leavePercent < 0 || leavePercent > 100) {
+                showToast('Values must be between 0 and 100');
+                return;
+            }
+            
+            if (!['faculty', 'hod', 'principal'].includes(currentUserRole)) {
+                showToast('Unauthorized');
+                return;
+            }
+            
+            const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+            const oldAtt = profiles[email].attendancePercent;
+            const oldLeave = profiles[email].leavePercent;
+            
+            profiles[email].attendancePercent = attendancePercent;
+            profiles[email].leavePercent = leavePercent;
+            profiles[email].lastUpdated = Date.now();
+            localStorage.setItem('swce_student_profiles', JSON.stringify(profiles));
+            
+            // Audit log
+            const audit = JSON.parse(localStorage.getItem('swce_attendance_audit'));
+            audit.push({
+                facultyMail: currentUser.email,
+                studentMail: email,
+                oldAtt: oldAtt,
+                newAtt: attendancePercent,
+                oldLeave: oldLeave,
+                newLeave: leavePercent,
+                timestamp: Date.now()
+            });
+            localStorage.setItem('swce_attendance_audit', JSON.stringify(audit));
+            
+            // Notification
+            const notifications = JSON.parse(localStorage.getItem('swce_notifications'));
+            notifications.push({
+                id: Date.now(),
+                type: 'Attendance Updated',
+                message: `Faculty updated attendance for ${profiles[email].studentName} to ${attendancePercent}%`,
+                time: Date.now(),
+                read: false,
+                target: email
+            });
+            localStorage.setItem('swce_notifications', JSON.stringify(notifications));
+            
+            showToast(`Attendance updated for ${profiles[email].studentName} to ${attendancePercent}%`);
+            closeAttendanceModal();
+            loadStudentList();
+        }
+
+        // Mark faculty attendance
+        function markFacultyAttendance() {
+            const date = document.getElementById('facultyAttendanceDate').value;
+            const status = document.getElementById('facultyAttendanceStatus').value;
+            const location = document.getElementById('facultyAttendanceLocation').value;
+            
+            const attendance = JSON.parse(localStorage.getItem('swce_attendance'));
+            attendance.push({
+                id: Date.now(),
+                facultyName: currentUser.fullName,
+                email: currentUser.email,
+                dept: 'CSE',
+                date: date,
+                status: status,
+                location: location,
+                markedAt: Date.now()
+            });
+            localStorage.setItem('swce_attendance', JSON.stringify(attendance));
+            
+            showToast('Attendance marked');
+            loadFacultyAttendanceTable();
+        }
+
+        // Load faculty attendance table
+        function loadFacultyAttendanceTable() {
+            const attendance = JSON.parse(localStorage.getItem('swce_attendance'));
+            const table = document.getElementById('facultyAttendanceTable');
+            table.innerHTML = '';
+            
+            const userAttendance = attendance.filter(a => a.email === currentUser.email);
+            
+            userAttendance.forEach(record => {
+                const row = document.createElement('tr');
+                row.className = 'border-b text-xs';
+                row.innerHTML = `
+                    <td class="py-2">${record.date}</td>
+                    <td class="py-2">
+                        <span class="px-2 py-0.5 rounded-full ${record.status === 'Present' ? 'bg-green-100 text-green-800' : record.status === 'Absent' ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'}">${record.status}</span>
+                    </td>
+                    <td class="py-2">${record.location}</td>
+                `;
+                table.appendChild(row);
+            });
+        }
+
+        // Load faculty leave
+        function loadFacultyLeave() {
+            const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+            const profile = profiles[currentUser.email] || {};
+            
+            document.getElementById('facultyFromName').value = currentUser.fullName;
+            document.getElementById('facultyDept').value = profile.dept || 'CSE';
+            document.getElementById('facultyDesignation').value = 'Faculty';
+            document.getElementById('facultyFromDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('facultyToDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('facultyNoDays').value = 1;
+        }
+
+        // Toggle faculty custom subject
+        function toggleFacultyCustomSubject() {
+            const subject = document.getElementById('facultyLeaveSubject').value;
+            document.getElementById('facultyCustomSubjectDiv').classList.toggle('hidden', subject !== 'Custom');
+        }
+
+        // Calculate faculty days
+        function calculateFacultyDays() {
+            const fromDate = new Date(document.getElementById('facultyFromDate').value);
+            const toDate = new Date(document.getElementById('facultyToDate').value);
+            const days = Math.ceil((toDate - fromDate) / (1000 * 60 * 60 * 24)) + 1;
+            document.getElementById('facultyNoDays').value = days > 0 ? days : 1;
+        }
+
+        // Generate faculty body
+        function generateFacultyBody() {
+            const subject = document.getElementById('facultyLeaveSubject').value;
+            const customSubject = document.getElementById('facultyCustomSubject').value;
+            const fromDate = document.getElementById('facultyFromDate').value;
+            const toDate = document.getElementById('facultyToDate').value;
+            const days = document.getElementById('facultyNoDays').value;
+            const fromName = document.getElementById('facultyFromName').value;
+            
+            let body = '';
+            
+            switch (subject) {
+                case 'Medical':
+                    body = `I have been suffering from medical issues and am unable to attend duty from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                case 'Family':
+                    body = `I need to attend to family matters from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                case 'Wedding':
+                    body = `I need to attend a family wedding function from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                case 'OD':
+                case 'Symposium':
+                    body = `I need to attend an ${subject} event officially from ${fromDate} to ${toDate}. I request you to grant me OD for ${days} day(s).`;
+                    break;
+                case 'Personal':
+                    body = `I need to attend to personal matters from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                case 'Festival':
+                    body = `I need to attend to festival celebration with my family from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                case 'Custom':
+                    body = `I need to attend to ${customSubject} from ${fromDate} to ${toDate}. I request you to grant me leave for ${days} day(s).`;
+                    break;
+                default:
+                    body = `I request you to grant me leave from ${fromDate} to ${toDate} for ${days} day(s) due to ${subject}.`;
+            }
+            
+            document.getElementById('facultyLeaveBody').value = body;
+        }
+
+        // Submit faculty leave
+        function submitFacultyLeave() {
+            const fromName = document.getElementById('facultyFromName').value;
+            const dept = document.getElementById('facultyDept').value;
+            const designation = document.getElementById('facultyDesignation').value;
+            const subject = document.getElementById('facultyLeaveSubject').value;
+            const customSubject = document.getElementById('facultyCustomSubject').value;
+            const fromDate = document.getElementById('facultyFromDate').value;
+            const toDate = document.getElementById('facultyToDate').value;
+            const days = document.getElementById('facultyNoDays').value;
+            const body = document.getElementById('facultyLeaveBody').value;
+            
+            if (!fromName || !fromDate || !toDate || !body) {
+                showToast('Please fill all required fields');
+                return;
+            }
+            
+            const trackingId = `SWCE${new Date().getFullYear()}FAC${Math.floor(1000 + Math.random() * 9000)}`;
+            
+            const leave = {
+                id: Date.now(),
+                trackingId: trackingId,
+                facultyName: fromName,
+                email: currentUser.email,
+                dept: dept,
+                fromDate: fromDate,
+                toDate: toDate,
+                days: parseInt(days),
+                subject: subject === 'Custom' ? customSubject : subject,
+                customSubject: customSubject,
+                body: body,
+                statusChain: {
+                    HOD: 'Pending',
+                    Principal: 'Waiting'
+                },
+                currentLevel: 'HOD',
+                overallStatus: 'Pending',
+                history: [{
+                    level: 'HOD',
+                    action: 'Submitted to HOD',
+                    timestamp: Date.now()
+                }],
+                createdAt: Date.now()
+            };
+            
+            const leaves = JSON.parse(localStorage.getItem('swce_faculty_leaves'));
+            leaves.push(leave);
+            localStorage.setItem('swce_faculty_leaves', JSON.stringify(leaves));
+            
+            // Add notification
+            const notifications = JSON.parse(localStorage.getItem('swce_notifications'));
+            const hodWhitelist = JSON.parse(localStorage.getItem('swce_hod_whitelist'));
+            const principalWhitelist = JSON.parse(localStorage.getItem('swce_principal_whitelist'));
+            
+            [...hodWhitelist, ...principalWhitelist].forEach(email => {
+                notifications.push({
+                    id: Date.now() + Math.random(),
+                    type: 'Faculty Leave Submitted',
+                    message: `Faculty leave from ${fromName} - ${trackingId}`,
+                    trackingId: trackingId,
+                    time: Date.now(),
+                    read: false,
+                    target: email
+                });
+            });
+            
+            localStorage.setItem('swce_notifications', JSON.stringify(notifications));
+            
+            showToast(`Faculty leave submitted. Tracking ID: ${trackingId}`);
+            showPage('my-leave');
+        }
+
+        // Load faculty approval
+        function loadFacultyApproval() {
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            const pendingLeaves = leaves.filter(l => l.currentLevel === 'Faculty' && l.statusChain.Faculty === 'Pending');
+            
+            // Remove duplicates
+            const uniqueLeaves = [];
+            const seen = new Set();
+            pendingLeaves.forEach(leave => {
+                const key = `${leave.studentName}-${leave.fromDate}-${leave.toDate}-${leave.subject}`;
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    uniqueLeaves.push(leave);
+                }
+            });
+            
+            const table = document.getElementById('facultyApprovalTable');
+            table.innerHTML = '';
+            
+            uniqueLeaves.forEach(leave => {
+                const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+                const profile = profiles[leave.fromEmail] || {};
+                const profilePic = profile.profilePic || localStorage.getItem(`swce_profile_${leave.fromEmail}`) || '';
+                
+                const row = document.createElement('tr');
+                row.className = 'border-b text-xs';
+                
+                row.innerHTML = `
+                    <td class="py-2">
+                        <img src="${profilePic || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23E5E7EB"%3E%3Cpath d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/%3E%3C/svg%3E'}" alt="Profile" class="w-8 h-8 rounded-full object-cover">
+                    </td>
+                    <td class="py-2 font-mono">${leave.trackingId}</td>
+                    <td class="py-2 font-medium">${leave.studentName}</td>
+                    <td class="py-2 text-gray-500">${leave.dept}</td>
+                    <td class="py-2">${leave.subject}</td>
+                    <td class="py-2">${leave.fromDate} to ${leave.toDate}</td>
+                    <td class="py-2">
+                        <span class="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                    </td>
+                    <td class="py-2">
+                        <button id="approveBtn-${leave.trackingId}" onclick="approveFacultyLeave('${leave.trackingId}')" class="text-xs bg-green-100 text-green-800 border border-green-300 px-3 py-1.5 rounded-lg hover:bg-green-200">Approve</button>
+                        <button id="forwardBtn-${leave.trackingId}" onclick="forwardFacultyLeave('${leave.trackingId}')" class="text-xs bg-blue-100 text-blue-800 border border-blue-300 px-3 py-1.5 rounded-lg hover:bg-blue-200 hidden">Forward</button>
+                        <span id="forwardBanner-${leave.trackingId}" class="text-xs bg-green-100 text-green-800 px-3 py-1.5 rounded-lg hidden">Approved</span>
+                    </td>
+                `;
+                
+                table.appendChild(row);
+            });
+        }
+
+        // Approve faculty leave
+        function approveFacultyLeave(trackingId) {
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            const leave = leaves.find(l => l.trackingId === trackingId);
+            
+            if (leave) {
+                leave.statusChain.Faculty = 'Approved';
+                leave.history.push({
+                    level: 'Faculty',
+                    action: 'Faculty Approved',
+                    timestamp: Date.now()
+                });
+                
+                localStorage.setItem('swce_leaves', JSON.stringify(leaves));
+                
+                document.getElementById(`approveBtn-${trackingId}`).classList.add('hidden');
+                document.getElementById(`forwardBtn-${trackingId}`).classList.remove('hidden');
+                document.getElementById(`forwardBanner-${trackingId}`).classList.remove('hidden');
+                
+                showToast('Approved');
+                updateBellCount();
+            }
+        }
+
+        // Forward faculty leave
+        function forwardFacultyLeave(trackingId) {
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            const leave = leaves.find(l => l.trackingId === trackingId);
+            
+            if (leave) {
+                leave.currentLevel = 'HOD';
+                leave.statusChain.HOD = 'Pending';
+                leave.history.push({
+                    level: 'Faculty',
+                    action: 'Forwarded to HOD',
+                    timestamp: Date.now()
+                });
+                
+                localStorage.setItem('swce_leaves', JSON.stringify(leaves));
+                
+                // Add notification
+                const notifications = JSON.parse(localStorage.getItem('swce_notifications'));
+                const hodWhitelist = JSON.parse(localStorage.getItem('swce_hod_whitelist'));
+                
+                hodWhitelist.forEach(email => {
+                    notifications.push({
+                        id: Date.now() + Math.random(),
+                        type: 'Forwarded to HOD',
+                        message: `Leave ${trackingId} forwarded to HOD`,
+                        trackingId: trackingId,
+                        time: Date.now(),
+                        read: false,
+                        target: email
+                    });
+                });
+                
+                localStorage.setItem('swce_notifications', JSON.stringify(notifications));
+                
+                showToast('Forwarded to HOD');
+                loadFacultyApproval();
+                updateBellCount();
+            }
+        }
+
+        // Load HOD approval
+        function loadHodApproval() {
+            loadHodStudentLeaves();
+            loadHodFacultyLeaves();
+        }
+
+        // Load HOD student leaves
+        function loadHodStudentLeaves() {
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            let pendingLeaves = leaves.filter(l => l.currentLevel === 'HOD' && l.statusChain.HOD === 'Pending');
+            
+            // Filter by dept if HOD
+            if (currentUserRole === 'hod') {
+                const profiles = JSON.parse(localStorage.getItem('swce_student_profiles'));
+                const userDept = profiles[currentUser.email]?.dept;
+                if (userDept) {
+                    pendingLeaves = pendingLeaves.filter(l => l.dept === userDept);
+                }
+            }
+            
+            const table = document.getElementById('hodStudentLeavesTable');
+            table.innerHTML = '';
+            
+            pendingLeaves.forEach(leave => {
+                const row = document.createElement('tr');
+                row.className = 'border-b text-xs';
+                
+                row.innerHTML = `
+                    <td class="py-2 font-mono">${leave.trackingId}</td>
+                    <td class="py-2 font-medium">${leave.studentName}</td>
+                    <td class="py-2 text-gray-500">${leave.dept}</td>
+                    <td class="py-2">${leave.subject}</td>
+                    <td class="py-2">${leave.fromDate} to ${leave.toDate}</td>
+                    <td class="py-2">
+                        <span class="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                    </td>
+                    <td class="py-2">
+                        <button id="hodApproveStudent-${leave.trackingId}" onclick="hodApproveStudent('${leave.trackingId}')" class="text-xs bg-green-100 text-green-800 border border-green-300 px-3 py-1.5 rounded-lg hover:bg-green-200">Approve</button>
+                        <button id="hodForwardStudent-${leave.trackingId}" onclick="hodForwardStudent('${leave.trackingId}')" class="text-xs bg-blue-100 text-blue-800 border border-blue-300 px-3 py-1.5 rounded-lg hover:bg-blue-200 hidden">Forward to Principal</button>
+                        <span id="hodForwardBannerStudent-${leave.trackingId}" class="text-xs bg-green-100 text-green-800 px-3 py-1.5 rounded-lg hidden">Approved</span>
+                    </td>
+                `;
+                
+                table.appendChild(row);
+            });
+        }
+
+        // Load HOD faculty leaves
+        function loadHodFacultyLeaves() {
+            const leaves = JSON.parse(localStorage.getItem('swce_faculty_leaves'));
+            const pendingLeaves = leaves.filter(l => l.currentLevel === 'HOD' && l.statusChain.HOD === 'Pending');
+            
+            const table = document.getElementById('hodFacultyLeavesTable');
+            table.innerHTML = '';
+            
+            pendingLeaves.forEach(leave => {
+                const row = document.createElement('tr');
+                row.className = 'border-b text-xs';
+                
+                row.innerHTML = `
+                    <td class="py-2 font-mono">${leave.trackingId}</td>
+                    <td class="py-2 font-medium">${leave.facultyName}</td>
+                    <td class="py-2 text-gray-500">${leave.dept}</td>
+                    <td class="py-2">${leave.subject}</td>
+                    <td class="py-2">${leave.fromDate} to ${leave.toDate}</td>
+                    <td class="py-2">
+                        <span class="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                    </td>
+                    <td class="py-2">
+                        <button id="hodApproveFaculty-${leave.trackingId}" onclick="hodApproveFaculty('${leave.trackingId}')" class="text-xs bg-green-100 text-green-800 border border-green-300 px-3 py-1.5 rounded-lg hover:bg-green-200">Approve</button>
+                        <button id="hodForwardFaculty-${leave.trackingId}" onclick="hodForwardFaculty('${leave.trackingId}')" class="text-xs bg-blue-100 text-blue-800 border border-blue-300 px-3 py-1.5 rounded-lg hover:bg-blue-200 hidden">Forward to Principal</button>
+                        <span id="hodForwardBannerFaculty-${leave.trackingId}" class="text-xs bg-green-100 text-green-800 px-3 py-1.5 rounded-lg hidden">Approved</span>
+                    </td>
+                `;
+                
+                table.appendChild(row);
+            });
+        }
+
+        // Switch HOD tab
+        function switchHodTab(tab) {
+            document.getElementById('hodStudentTab').className = tab === 'student' ? 'px-4 py-2 rounded-lg text-sm bg-[#0A2D6A] text-white' : 'px-4 py-2 rounded-lg text-sm bg-gray-100 text-gray-700';
+            document.getElementById('hodFacultyTab').className = tab === 'faculty' ? 'px-4 py-2 rounded-lg text-sm bg-[#0A2D6A] text-white' : 'px-4 py-2 rounded-lg text-sm bg-gray-100 text-gray-700';
+            document.getElementById('hodStudentLeavesSection').classList.toggle('hidden', tab !== 'student');
+            document.getElementById('hodFacultyLeavesSection').classList.toggle('hidden', tab !== 'faculty');
+        }
+
+        // HOD approve student
+        function hodApproveStudent(trackingId) {
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            const leave = leaves.find(l => l.trackingId === trackingId);
+            
+            if (leave) {
+                leave.statusChain.HOD = 'Approved';
+                leave.history.push({
+                    level: 'HOD',
+                    action: 'HOD Approved',
+                    timestamp: Date.now()
+                });
+                
+                localStorage.setItem('swce_leaves', JSON.stringify(leaves));
+                
+                document.getElementById(`hodApproveStudent-${trackingId}`).classList.add('hidden');
+                document.getElementById(`hodForwardStudent-${trackingId}`).classList.remove('hidden');
+                document.getElementById(`hodForwardBannerStudent-${trackingId}`).classList.remove('hidden');
+                
+                showToast('Approved');
+            }
+        }
+
+        // HOD forward student
+        function hodForwardStudent(trackingId) {
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            const leave = leaves.find(l => l.trackingId === trackingId);
+            
+            if (leave) {
+                leave.currentLevel = 'Principal';
+                leave.statusChain.Principal = 'Pending';
+                leave.history.push({
+                    level: 'HOD',
+                    action: 'Forwarded to Principal',
+                    timestamp: Date.now()
+                });
+                
+                localStorage.setItem('swce_leaves', JSON.stringify(leaves));
+                
+                // Add notification
+                const notifications = JSON.parse(localStorage.getItem('swce_notifications'));
+                const principalWhitelist = JSON.parse(localStorage.getItem('swce_principal_whitelist'));
+                
+                principalWhitelist.forEach(email => {
+                    notifications.push({
+                        id: Date.now() + Math.random(),
+                        type: 'Forwarded to Principal',
+                        message: `Leave ${trackingId} forwarded to Principal`,
+                        trackingId: trackingId,
+                        time: Date.now(),
+                        read: false,
+                        target: email
+                    });
+                });
+                
+                localStorage.setItem('swce_notifications', JSON.stringify(notifications));
+                
+                showToast('Forwarded to Principal');
+                loadHodStudentLeaves();
+                updateBellCount();
+            }
+        }
+
+        // HOD approve faculty
+        function hodApproveFaculty(trackingId) {
+            const leaves = JSON.parse(localStorage.getItem('swce_faculty_leaves'));
+            const leave = leaves.find(l => l.trackingId === trackingId);
+            
+            if (leave) {
+                leave.statusChain.HOD = 'Approved';
+                leave.history.push({
+                    level: 'HOD',
+                    action: 'HOD Approved',
+                    timestamp: Date.now()
+                });
+                
+                localStorage.setItem('swce_faculty_leaves', JSON.stringify(leaves));
+                
+                document.getElementById(`hodApproveFaculty-${trackingId}`).classList.add('hidden');
+                document.getElementById(`hodForwardFaculty-${trackingId}`).classList.remove('hidden');
+                document.getElementById(`hodForwardBannerFaculty-${trackingId}`).classList.remove('hidden');
+                
+                showToast('Approved');
+            }
+        }
+
+        // HOD forward faculty
+        function hodForwardFaculty(trackingId) {
+            const leaves = JSON.parse(localStorage.getItem('swce_faculty_leaves'));
+            const leave = leaves.find(l => l.trackingId === trackingId);
+            
+            if (leave) {
+                leave.currentLevel = 'Principal';
+                leave.statusChain.Principal = 'Pending';
+                leave.history.push({
+                    level: 'HOD',
+                    action: 'Forwarded to Principal',
+                    timestamp: Date.now()
+                });
+                
+                localStorage.setItem('swce_faculty_leaves', JSON.stringify(leaves));
+                
+                // Add notification
+                const notifications = JSON.parse(localStorage.getItem('swce_notifications'));
+                const principalWhitelist = JSON.parse(localStorage.getItem('swce_principal_whitelist'));
+                
+                principalWhitelist.forEach(email => {
+                    notifications.push({
+                        id: Date.now() + Math.random(),
+                        type: 'Forwarded to Principal',
+                        message: `Faculty leave ${trackingId} forwarded to Principal`,
+                        trackingId: trackingId,
+                        time: Date.now(),
+                        read: false,
+                        target: email
+                    });
+                });
+                
+                localStorage.setItem('swce_notifications', JSON.stringify(notifications));
+                
+                showToast('Forwarded to Principal');
+                loadHodFacultyLeaves();
+                updateBellCount();
+            }
+        }
+
+        // Load principal approval
+        function loadPrincipalApproval() {
+            const studentLeaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            const facultyLeaves = JSON.parse(localStorage.getItem('swce_faculty_leaves'));
+            
+            const pendingStudentLeaves = studentLeaves.filter(l => l.currentLevel === 'Principal' && l.statusChain.Principal === 'Pending');
+            const pendingFacultyLeaves = facultyLeaves.filter(l => l.currentLevel === 'Principal' && l.statusChain.Principal === 'Pending');
+            
+            const table = document.getElementById('principalApprovalTable');
+            table.innerHTML = '';
+            
+            pendingStudentLeaves.forEach(leave => {
+                const row = document.createElement('tr');
+                row.className = 'border-b text-xs';
+                
+                row.innerHTML = `
+                    <td class="py-2 font-mono">${leave.trackingId}</td>
+                    <td class="py-2 font-medium">${leave.studentName}</td>
+                    <td class="py-2 text-gray-500">${leave.dept}</td>
+                    <td class="py-2">${leave.fromDate} to ${leave.toDate}</td>
+                    <td class="py-2">
+                        <span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">Student</span>
+                    </td>
+                    <td class="py-2">
+                        <span class="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                    </td>
+                    <td class="py-2">
+                        <button id="principalApproveBtn-${leave.trackingId}" onclick="principalApprove('${leave.trackingId}', 'student')" class="text-xs bg-[#0A2D6A] text-white px-3 py-1.5 rounded-lg hover:bg-blue-800">Final Approve</button>
+                    </td>
+                `;
+                
+                table.appendChild(row);
+            });
+            
+            pendingFacultyLeaves.forEach(leave => {
+                const row = document.createElement('tr');
+                row.className = 'border-b text-xs';
+                
+                row.innerHTML = `
+                    <td class="py-2 font-mono">${leave.trackingId}</td>
+                    <td class="py-2 font-medium">${leave.facultyName}</td>
+                    <td class="py-2 text-gray-500">${leave.dept}</td>
+                    <td class="py-2">${leave.fromDate} to ${leave.toDate}</td>
+                    <td class="py-2">
+                        <span class="px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">Faculty</span>
+                    </td>
+                    <td class="py-2">
+                        <span class="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                    </td>
+                    <td class="py-2">
+                        <button id="principalApproveBtn-${leave.trackingId}" onclick="principalApprove('${leave.trackingId}', 'faculty')" class="text-xs bg-[#0A2D6A] text-white px-3 py-1.5 rounded-lg hover:bg-blue-800">Final Approve</button>
+                    </td>
+                `;
+                
+                table.appendChild(row);
+            });
+        }
+
+        // Principal approve
+        function principalApprove(trackingId, type) {
+            if (type === 'student') {
+                const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+                const leave = leaves.find(l => l.trackingId === trackingId);
+                
+                if (leave) {
+                    leave.statusChain.Principal = 'Approved';
+                    leave.overallStatus = 'Approved';
+                    leave.history.push({
+                        level: 'Principal',
+                        action: 'Principal Approved - Fully Approved',
+                        timestamp: Date.now()
+                    });
+                    
+                    localStorage.setItem('swce_leaves', JSON.stringify(leaves));
+                    
+                    // Add notification
+                    const notifications = JSON.parse(localStorage.getItem('swce_notifications'));
+                    notifications.push({
+                        id: Date.now() + Math.random(),
+                        type: 'Fully Approved',
+                        message: `Leave ${trackingId} Fully Approved by Principal`,
+                        trackingId: trackingId,
+                        time: Date.now(),
+                        read: false,
+                        target: leave.fromEmail
+                    });
+                    localStorage.setItem('swce_notifications', JSON.stringify(notifications));
+                }
+            } else {
+                const leaves = JSON.parse(localStorage.getItem('swce_faculty_leaves'));
+                const leave = leaves.find(l => l.trackingId === trackingId);
+                
+                if (leave) {
+                    leave.statusChain.Principal = 'Approved';
+                    leave.overallStatus = 'Approved';
+                    leave.history.push({
+                        level: 'Principal',
+                        action: 'Principal Approved - Fully Approved',
+                        timestamp: Date.now()
+                    });
+                    
+                    localStorage.setItem('swce_faculty_leaves', JSON.stringify(leaves));
+                    
+                    // Add notification
+                    const notifications = JSON.parse(localStorage.getItem('swce_notifications'));
+                    notifications.push({
+                        id: Date.now() + Math.random(),
+                        type: 'Fully Approved',
+                        message: `Faculty leave ${trackingId} Fully Approved by Principal`,
+                        trackingId: trackingId,
+                        time: Date.now(),
+                        read: false,
+                        target: leave.email
+                    });
+                    localStorage.setItem('swce_notifications', JSON.stringify(notifications));
+                }
+            }
+            
+            showToast('Fully Approved');
+            loadPrincipalApproval();
+            updateBellCount();
+        }
+
+        // Load admin panel
+        function loadAdminPanel() {
+            loadWhitelistLists();
+            loadSecurityLogs();
+        }
+
+        // Load whitelist lists
+        function loadWhitelistLists() {
+            const facultyWhitelist = JSON.parse(localStorage.getItem('swce_faculty_whitelist'));
+            const hodWhitelist = JSON.parse(localStorage.getItem('swce_hod_whitelist'));
+            const principalWhitelist = JSON.parse(localStorage.getItem('swce_principal_whitelist'));
+            
+            const facultyList = document.getElementById('facultyWhitelistList');
+            facultyList.innerHTML = facultyWhitelist.map(email => `
+                <div class="flex justify-between items-center text-xs">
+                    <span>${email}</span>
+                    <button onclick="removeWhitelist('faculty', '${email}')" class="text-red-500 hover:underline">Remove</button>
+                </div>
+            `).join('');
+            
+            const hodList = document.getElementById('hodWhitelistList');
+            hodList.innerHTML = hodWhitelist.map(email => `
+                <div class="flex justify-between items-center text-xs">
+                    <span>${email}</span>
+                    <button onclick="removeWhitelist('hod', '${email}')" class="text-red-500 hover:underline">Remove</button>
+                </div>
+            `).join('');
+            
+            const principalList = document.getElementById('principalWhitelistList');
+            principalList.innerHTML = principalWhitelist.map(email => `
+                <div class="flex justify-between items-center text-xs">
+                    <span>${email}</span>
+                    <button onclick="removeWhitelist('principal', '${email}')" class="text-red-500 hover:underline">Remove</button>
+                </div>
+            `).join('');
+        }
+
+        // Add whitelist
+        function addWhitelist(type) {
+            let email;
+            let whitelist;
+            
+            switch (type) {
+                case 'faculty':
+                    email = document.getElementById('addFacultyEmailInput').value;
+                    whitelist = JSON.parse(localStorage.getItem('swce_faculty_whitelist'));
+                    break;
+                case 'hod':
+                    email = document.getElementById('addHodEmailInput').value;
+                    whitelist = JSON.parse(localStorage.getItem('swce_hod_whitelist'));
+                    break;
+                case 'principal':
+                    email = document.getElementById('addPrincipalEmailInput').value;
+                    whitelist = JSON.parse(localStorage.getItem('swce_principal_whitelist'));
+                    break;
+            }
+            
+            if (!email || !email.includes('@')) {
+                showToast('Invalid email');
+                return;
+            }
+            
+            if (whitelist.includes(email)) {
+                showToast('Email already exists');
+                return;
+            }
+            
+            whitelist.push(email);
+            
+            switch (type) {
+                case 'faculty':
+                    localStorage.setItem('swce_faculty_whitelist', JSON.stringify(whitelist));
+                    document.getElementById('addFacultyEmailInput').value = '';
+                    break;
+                case 'hod':
+                    localStorage.setItem('swce_hod_whitelist', JSON.stringify(whitelist));
+                    document.getElementById('addHodEmailInput').value = '';
+                    break;
+                case 'principal':
+                    localStorage.setItem('swce_principal_whitelist', JSON.stringify(whitelist));
+                    document.getElementById('addPrincipalEmailInput').value = '';
+                    break;
+            }
+            
+            showToast('Added to whitelist');
+            loadWhitelistLists();
+        }
+
+        // Remove whitelist
+        function removeWhitelist(type, email) {
+            let whitelist;
+            
+            switch (type) {
+                case 'faculty':
+                    whitelist = JSON.parse(localStorage.getItem('swce_faculty_whitelist'));
+                    whitelist = whitelist.filter(e => e !== email);
+                    localStorage.setItem('swce_faculty_whitelist', JSON.stringify(whitelist));
+                    break;
+                case 'hod':
+                    whitelist = JSON.parse(localStorage.getItem('swce_hod_whitelist'));
+                    whitelist = whitelist.filter(e => e !== email);
+                    localStorage.setItem('swce_hod_whitelist', JSON.stringify(whitelist));
+                    break;
+                case 'principal':
+                    whitelist = JSON.parse(localStorage.getItem('swce_principal_whitelist'));
+                    whitelist = whitelist.filter(e => e !== email);
+                    localStorage.setItem('swce_principal_whitelist', JSON.stringify(whitelist));
+                    break;
+            }
+            
+            showToast('Removed from whitelist');
+            loadWhitelistLists();
+        }
+
+        // Load security logs
+        function loadSecurityLogs() {
+            const logs = JSON.parse(localStorage.getItem('swce_security_logs'));
+            const table = document.getElementById('securityLogsList');
+            table.innerHTML = '';
+            
+            logs.forEach(log => {
+                const row = document.createElement('tr');
+                row.className = 'border-b text-xs';
+                row.innerHTML = `
+                    <td class="py-2">${log.email}</td>
+                    <td class="py-2">${log.attemptedRole}</td>
+                    <td class="py-2">${log.actualRole}</td>
+                    <td class="py-2">${new Date(log.time).toLocaleString()}</td>
+                    <td class="py-2">
+                        <span class="px-2 py-0.5 rounded-full ${log.result === 'Allowed' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">${log.result}</span>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+        }
+
+        // Load reports
+        function loadReports() {
+            loadDeptLeavesChart();
+            loadFacultyAttendanceChart();
+            loadFacultyLeaveTypesChart();
+            loadStatusPieChart();
+            loadLatencyChart();
+        }
+
+        // Load dept leaves chart
+        function loadDeptLeavesChart() {
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            const depts = ['AI&DS', 'AI&ML', 'CSE', 'CYBER SECURITY', 'EEE', 'MECH', 'CIVIL', 'ECE'];
+            const deptCounts = {};
+            
+            depts.forEach(dept => deptCounts[dept] = 0);
+            leaves.forEach(leave => {
+                if (deptCounts[leave.dept] !== undefined) {
+                    deptCounts[leave.dept]++;
+                }
+            });
+            
+            const maxCount = Math.max(...Object.values(deptCounts), 1);
+            const container = document.getElementById('deptLeavesChart');
+            container.innerHTML = depts.map(dept => `
+                <div class="flex items-center gap-2">
+                    <span class="text-xs w-20">${dept}</span>
+                    <div class="flex-1 h-4 bg-gray-200 rounded overflow-hidden">
+                        <div class="h-full bg-[#0A2D6A]" style="width: ${(deptCounts[dept] / maxCount) * 100}%"></div>
+                    </div>
+                    <span class="text-xs w-8">${deptCounts[dept]}</span>
+                </div>
+            `).join('');
+        }
+
+        // Load faculty attendance chart
+        function loadFacultyAttendanceChart() {
+            const attendance = JSON.parse(localStorage.getItem('swce_attendance'));
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const dayCounts = {};
+            
+            days.forEach(day => dayCounts[day] = 0);
+            attendance.forEach(record => {
+                const day = new Date(record.date).toLocaleDateString('en-US', { weekday: 'short' });
+                if (dayCounts[day] !== undefined && record.status === 'Present') {
+                    dayCounts[day]++;
+                }
+            });
+            
+            const maxCount = Math.max(...Object.values(dayCounts), 1);
+            const container = document.getElementById('facultyAttendanceChart');
+            container.innerHTML = days.map(day => `
+                <div class="flex items-center gap-2">
+                    <span class="text-xs w-12">${day}</span>
+                    <div class="flex-1 h-4 bg-gray-200 rounded overflow-hidden">
+                        <div class="h-full bg-[#0A2D6A]" style="width: ${(dayCounts[day] / maxCount) * 100}%"></div>
+                    </div>
+                    <span class="text-xs w-8">${dayCounts[day]}</span>
+                </div>
+            `).join('');
+        }
+
+        // Load faculty leave types chart
+        function loadFacultyLeaveTypesChart() {
+            const leaves = JSON.parse(localStorage.getItem('swce_faculty_leaves'));
+            const types = ['Medical', 'Family', 'Wedding', 'OD', 'Personal', 'Festival'];
+            const typeCounts = {};
+            
+            types.forEach(type => typeCounts[type] = 0);
+            leaves.forEach(leave => {
+                if (typeCounts[leave.subject] !== undefined) {
+                    typeCounts[leave.subject]++;
+                }
+            });
+            
+            const total = leaves.length || 1;
+            const colors = ['bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-purple-500', 'bg-pink-500', 'bg-orange-500'];
+            const container = document.getElementById('facultyLeaveTypesChart');
+            container.innerHTML = types.map((type, index) => `
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full ${colors[index]} flex items-center justify-center text-white text-xs font-medium">${Math.round((typeCounts[type] / total) * 100)}%</div>
+                    <span class="text-xs mt-1">${type}</span>
+                </div>
+            `).join('');
+        }
+
+        // Load status pie chart
+        function loadStatusPieChart() {
+            const leaves = JSON.parse(localStorage.getItem('swce_leaves'));
+            const statuses = ['Pending', 'Approved', 'Rejected', 'Waiting'];
+            const statusCounts = {};
+            
+            statuses.forEach(status => statusCounts[status] = 0);
+            leaves.forEach(leave => {
+                if (statusCounts[leave.overallStatus] !== undefined) {
+                    statusCounts[leave.overallStatus]++;
+                }
+            });
+            
+            const total = leaves.length || 1;
+            const colors = ['bg-yellow-500', 'bg-green-500', 'bg-red-500', 'bg-gray-500'];
+            const container = document.getElementById('statusPieChart');
+            container.innerHTML = statuses.map((status, index) => `
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 rounded-full ${colors[index]} flex items-center justify-center text-white text-xs font-medium">${Math.round((statusCounts[status] / total) * 100)}%</div>
+                    <span class="text-xs mt-1">${status}</span>
+                </div>
+            `).join('');
+        }
+
+        // Load latency chart
+        function loadLatencyChart() {
+            const container = document.getElementById('latencyChart');
+            container.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <span class="text-xs w-24">Manual (2880m)</span>
+                    <div class="flex-1 h-4 bg-gray-200 rounded overflow-hidden">
+                        <div class="h-full bg-yellow-500" style="width: 100%"></div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs w-24">Old ERP (60m)</span>
+                    <div class="flex-1 h-4 bg-gray-200 rounded overflow-hidden">
+                        <div class="h-full bg-yellow-400" style="width: 2%"></div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs w-24">SWCE ERP (1m)</span>
+                    <div class="flex-1 h-4 bg-gray-200 rounded overflow-hidden">
+                        <div class="h-full bg-green-500" style="width: 0.03%"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Export data
+        function exportData() {
+            const data = {
+                swce_leaves: JSON.parse(localStorage.getItem('swce_leaves')),
+                swce_faculty_leaves: JSON.parse(localStorage.getItem('swce_faculty_leaves')),
+                swce_student_profiles: JSON.parse(localStorage.getItem('swce_student_profiles')),
+                swce_attendance: JSON.parse(localStorage.getItem('swce_attendance')),
+                swce_notifications: JSON.parse(localStorage.getItem('swce_notifications')),
+                swce_security_logs: JSON.parse(localStorage.getItem('swce_security_logs')),
+                swce_attendance_audit: JSON.parse(localStorage.getItem('swce_attendance_audit')),
+                swce_faculty_whitelist: JSON.parse(localStorage.getItem('swce_faculty_whitelist')),
+                swce_hod_whitelist: JSON.parse(localStorage.getItem('swce_hod_whitelist')),
+                swce_principal_whitelist: JSON.parse(localStorage.getItem('swce_principal_whitelist'))
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'swce_backup.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showToast('Data exported');
+        }
+
+        // Import data
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+            input.onchange = function(event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        
+                        if (data.swce_leaves) localStorage.setItem('swce_leaves', JSON.stringify(data.swce_leaves));
+                        if (data.swce_faculty_leaves) localStorage.setItem('swce_faculty_leaves', JSON.stringify(data.swce_faculty_leaves));
+                        if (data.swce_student_profiles) localStorage.setItem('swce_student_profiles', JSON.stringify(data.swce_student_profiles));
+                        if (data.swce_attendance) localStorage.setItem('swce_attendance', JSON.stringify(data.swce_attendance));
+                        if (data.swce_notifications) localStorage.setItem('swce_notifications', JSON.stringify(data.swce_notifications));
+                        if (data.swce_security_logs) localStorage.setItem('swce_security_logs', JSON.stringify(data.swce_security_logs));
+                        if (data.swce_attendance_audit) localStorage.setItem('swce_attendance_audit', JSON.stringify(data.swce_attendance_audit));
+                        if (data.swce_faculty_whitelist) localStorage.setItem('swce_faculty_whitelist', JSON.stringify(data.swce_faculty_whitelist));
+                        if (data.swce_hod_whitelist) localStorage.setItem('swce_hod_whitelist', JSON.stringify(data.swce_hod_whitelist));
+                        if (data.swce_principal_whitelist) localStorage.setItem('swce_principal_whitelist', JSON.stringify(data.swce_principal_whitelist));
+                        
+                        showToast('Data imported');
+                    } catch (error) {
+                        showToast('Invalid file format');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        // Clear data
+        function clearData() {
+            if (confirm('Are you sure you want to clear all data?')) {
+                localStorage.removeItem('swce_leaves');
+                localStorage.removeItem('swce_faculty_leaves');
+                localStorage.removeItem('swce_student_profiles');
+                localStorage.removeItem('swce_attendance');
+                localStorage.removeItem('swce_notifications');
+                localStorage.removeItem('swce_security_logs');
+                localStorage.removeItem('swce_attendance_audit');
+                
+                initializeData();
+                showToast('Data cleared');
+            }
+        }
+
+        // Update bell count
+        function updateBellCount() {
+            const notifications = JSON.parse(localStorage.getItem('swce_notifications'));
+            const userNotifications = notifications.filter(n => n.target === currentUser.email && !n.read);
+            
+            const bellCount = document.getElementById('bellCount');
+            if (userNotifications.length > 0) {
+                bellCount.textContent = userNotifications.length;
+                bellCount.classList.remove('hidden');
+                bellCount.classList.add('bounce-scale');
+                setTimeout(() => bellCount.classList.remove('bounce-scale'), 300);
+            } else {
+                bellCount.classList.add('hidden');
+            }
+        }
+
+        // Show toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 3000);
+        }
+
+        // Refresh all real-time data
+        function refreshAllRealTimeData() {
+            if (!currentUser) return;
+            
+            updateBellCount();
+            
+            // Refresh current page data
+            const currentPage = document.querySelector('.page:not(.hidden)');
+            if (currentPage) {
+                const pageName = currentPage.id.replace('page-', '');
+                loadPageData(pageName);
+            }
+            
+            // Update header
+            updateHeader();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeData();
+            
+            // Check for existing session
+            const savedUser = localStorage.getItem('swce_current_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                currentUserRole = currentUser.role;
+                document.getElementById('loginPage').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                arrangeDashboardByRole();
+                updateHeader();
+            }
+            
+            // Start real-time refresh
+            setInterval(refreshAllRealTimeData, 1000);
+        });
+    </script>
+</body>
+</html>
